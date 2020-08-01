@@ -21,29 +21,15 @@ print(dapp_private_key, dapp_address)
 hosts = 'https://open.api.qingniao.cloud'
 
 
-# 获取余额
-def get_balance():
-    urls = '/api/get_balance'
-    times = str(int(datetime.datetime.timestamp(datetime.datetime.now())))
-    u_data = {
-        "dapp_addr": dapp_address,
-        "timestamp": times,
-    }
-    u_data['dapp_signature'] = sign(urls, u_data, dapp_private_key)
-    re = requests.post(hosts + urls, json=u_data)
-    return re.json()
-
-
 # 上传数据
-def put_data(metadata, main_data, drive_id=0):
+def put_data(metadata, data, drive_id=0):
     urls = '/api/put'
-    times = str(int(datetime.datetime.timestamp(datetime.datetime.now()) * 1000))
-    print(times)
+    times = str(int(datetime.datetime.timestamp(datetime.datetime.now())))
     u_data = {
         "user_addr": dapp_address,
         "dapp_addr": dapp_address,
         "metadata": metadata.encode('utf8').hex(),
-        "data": main_data.encode('utf8').hex(),
+        "data": data.encode('utf8').hex(),
         "drive_id": drive_id,
         "timestamp": times
     }
@@ -55,7 +41,7 @@ def put_data(metadata, main_data, drive_id=0):
 # 更新数据
 def update_data(metadata, data, drive_id):
     urls = '/api/put'
-    times = str(int(datetime.datetime.timestamp(datetime.datetime.now()))*1000)
+    times = str(int(datetime.datetime.timestamp(datetime.datetime.now())))
     u_data = {
         "user_addr": dapp_address,
         "dapp_addr": dapp_address,
@@ -72,7 +58,7 @@ def update_data(metadata, data, drive_id):
 # 获取数据
 def get_data(drive_id, prev=0, next=0):
     urls = '/api/get'
-    times = str(int(datetime.datetime.timestamp(datetime.datetime.now())) * 1000)
+    times = str(int(datetime.datetime.timestamp(datetime.datetime.now())))
     u_data = {
         "dapp_addr": dapp_address,
         "drive_id": drive_id,
@@ -88,7 +74,7 @@ def get_data(drive_id, prev=0, next=0):
 # 获取数据列表
 def get_list(addr):
     urls = '/api/list'
-    times = str(int(datetime.datetime.timestamp(datetime.datetime.now())) * 1000)
+    times = str(int(datetime.datetime.timestamp(datetime.datetime.now())))
     u_data = {
         "protocol": 0,  # 传"0"表示不指定某个协议查询
         "addr": dapp_address,  # 传"0"表示不指定某个地址查询
@@ -113,7 +99,12 @@ def sign(url_name, param, sign_key):
     return signature
 
 
+def open_file():
+    f = open('test.zip', mode='rb')
+    return str(f.read())
+
+
 print(put_data('372819378291', 'test'))
-# print(get_data('b4bf5206e6e10fbecf2367673347ffa14d1637eff41bdf848b7b7988770dcef5'))
-# print(update_data('test', '更新一条消息', 'b4bf5206e6e10fbecf2367673347ffa14d1637eff41bdf848b7b7988770dcef5'))
-# print(get_list(dapp_address))
+print(get_data('5b9e6520589a4c6fa16e73fbe1265d3b03d8205c09e278db6723638ce3f99a5b'))
+print(update_data('test', '更新一条消息', 'b4bf5206e6e10fbecf2367673347ffa14d1637eff41bdf848b7b7988770dcef5'))
+print(get_list(dapp_address))
