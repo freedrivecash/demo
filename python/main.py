@@ -99,7 +99,7 @@ def sign(url_name, param, sign_key):
     return signature
 
 
-print(get_balance())
+# print(get_balance())
 print(put_data('test', '新增一条消息'))
-print(get_data('3cdddd16a9b875b30cbd4c12e83529f4297792ae1c3ee0d5663f780ee1f163c5'))
-print(update_data('test','更新一条消息','3cdddd16a9b875b30cbd4c12e83529f4297792ae1c3ee0d5663f780ee1f163c5'))
+# print(get_data('3cdddd16a9b875b30cbd4c12e83529f4297792ae1c3ee0d5663f780ee1f163c5'))
+# print(update_data('test','更新一条消息','3cdddd16a9b875b30cbd4c12e83529f4297792ae1c3ee0d5663f780ee1f163c5'))
